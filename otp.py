@@ -1,14 +1,23 @@
+import os
+import sys
 import string
 import random
-import sys
 
 abc = string.ascii_lowercase
 one_time_pad = list(abc)
+
+# print('abc is ', abc)
 # random.shuffle(one_time_pad)
 
 help = """python otp.py -e|-d
 -e for encryption
 -d for decryption """
+
+def get_random_string(length):
+    letters = string.ascii_lowercase
+    result_str = ''.join(random.choice(letters) for i in range(length))
+    # print("Random Key of length ", length, "is:", result_str)
+    return result_str
 
 def encrypt(msg, key):
     ciphertext = ''
@@ -20,6 +29,7 @@ def encrypt(msg, key):
         ciphertext += abc[cipher]
 
     return ciphertext
+
 
 def decrypt(ciphertext, key):
     if ciphertext == '' or key == '':
@@ -39,10 +49,14 @@ if __name__ == '__main__':
         print(help)
         exit(0)
 
-    key = input("Key: ")
-    msg = input("Message: ")
-
+    msg = "ishan"
+    key = get_random_string(len(msg))
+    
     if sys.argv[1] == availableOpt[1]:
-        print(encrypt(msg, key))
+        print('msg is ', msg)
+        print('key is ', key)
+        print('encrypted msg is: ',encrypt(msg, key))
     elif sys.argv[1] == availableOpt[0]:
-        print(decrypt(msg, key))
+        msg = input("Enter the received msg: ")
+        key = input("Enter the key used: ")
+        print('original msg is: ',decrypt(msg, key))
