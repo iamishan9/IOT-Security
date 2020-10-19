@@ -65,9 +65,9 @@ class XORShiftRandomizer(Randomizer):
         # Do not split if no decimal point and just take the integer as it is
         random_number = int(random_number)
 
-        random_number ^= (random_number << 21)
-        random_number ^= (random_number >> 35)
-        random_number ^= (random_number << 4)
+        random_number ^= (random_number << 12)
+        random_number ^= (random_number >> 25)
+        random_number ^= (random_number << 27)
 
         # Convert the generated number to lie between start and end
         random_number = random_number % end
@@ -83,8 +83,8 @@ End Randomizer Classes
 
 
 if __name__ == "__main__":
-    number_of_numbers = int(raw_input())
-    number_of_digits = int(raw_input())
+    number_of_numbers = int(input())
+    number_of_digits = int(input())
 
     xor_random = XORShiftRandomizer()
 
@@ -109,5 +109,6 @@ if __name__ == "__main__":
     end = int(end)
 
     while number_of_numbers > 0:
+        print('start is {} and end is {}'.format(start, end))
         print (xor_random.random(start, end, TimeSeed()))
         number_of_numbers = number_of_numbers - 1

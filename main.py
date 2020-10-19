@@ -1,47 +1,25 @@
+import time
 import os
 import sys
 import string
-import random2
+import random
+class Seed(object):
+    # Function that generates seed
+    def generate_seed(self):
+        pass
 
-# abc = string.ascii_lowercase
-# one_time_pad = list(abc)
 
-# print('abc is ', abc)
-# random.shuffle(one_time_pad)
+class TimeSeed(Seed):
+    """ Generates seed from current time """
+
+    def generate_seed(self):
+        return time.time()
+
 
 help = """python otp.py -e|-d
 -e for encryption
 -d for decryption """
 
-# def get_random_string(length):
-#     letters = string.ascii_lowercase
-#     result_str = ''.join(random.choice(letters) for i in range(length))
-#     # print("Random Key of length ", length, "is:", result_str)
-#     return result_str
-
-# def encrypt(msg, key):
-#     ciphertext = ''
-#     for idx, char in enumerate(msg):
-#         charIdx = abc.index(char)
-#         keyIdx = one_time_pad.index(key[idx])
-
-#         cipher = (keyIdx + charIdx) % len(one_time_pad)
-#         ciphertext += abc[cipher]
-
-#     return ciphertext
-
-
-# def decrypt(ciphertext, key):
-#     if ciphertext == '' or key == '':
-#         return ''
-
-#     charIdx = abc.index(ciphertext[0])
-#     keyIdx = one_time_pad.index(key[0])
-
-#     cipher = (charIdx - keyIdx) % len(one_time_pad)
-#     char = abc[cipher]
-
-#     return char + decrypt(ciphertext[1:], key[1:])
 
 def convertBin(msg):
     arr = []
@@ -69,6 +47,32 @@ def rand_key(p):
         key1 += temp 
 
     return(key1) 
+
+def random(start, end, seed):
+
+    random_number = seed.generate_seed()
+
+    # Get number after decimal point of seed because these are the numbers that actually vary
+    random_number = random_number % 1
+    random_number = str(random_number)
+
+    # Check if the number is decimal first
+    if random_number.find('.') != -1:
+        random_number = random_number.split('.')[1]
+
+    # Do not split if no decimal point and just take the integer as it is
+    random_number = int(random_number)
+
+    random_number ^= (random_number << 21)
+    random_number ^= (random_number >> 35)
+    random_number ^= (random_number << 4)
+
+    # Convert the generated number to lie between start and end
+    random_number = random_number % end
+    if random_number < start:
+        random_number = random_number + start
+
+    return random_number
 
 
 def enc(msg, key):
@@ -98,7 +102,6 @@ def LCG(seed, n, a= 1140671485, c=128201163, m=2**24):
     for i in range(n):
         seed = (a * seed + c) % m
         numbers.append(seed)
-
     return numbers
 
 if __name__ == '__main__':
@@ -113,8 +116,21 @@ if __name__ == '__main__':
 
     msg = "0010010100011110011111110"
     # key = rand_key(len(msg))
-    rand = random2.randint(1, 10000000)
-    key = LCG(rand, 1)[0]
+    seed=TimeSeed()
+    random_number = seed.generate_seed()
+    # Get number after decimal point of seed because these are the numbers that actually vary
+    random_number = random_number % 1
+    random_number = str(random_number)
+
+    # Check if the number is decimal first
+    if random_number.find('.') != -1:
+        random_number = random_number.split('.')[1]
+
+    # Do not split if no decimal point and just take the integer as it is
+    random_number = int(random_number)
+    start_time = time.time()
+    key = LCG(random_number, 1)[0]
+    t1=time.time()-start_time
     print('key is ', key)
     binkey = bin(key)[2:]
     print('bin key is ', binkey, ' type is ', type(binkey))
@@ -144,4 +160,4 @@ if __name__ == '__main__':
     elif sys.argv[1] == availableOpt[0]:
         msg = input("Enter the received msg: ")
         key = input("Enter the key used: ")
-        print('original msg is: ',dec(msg, key))
+        print('original msg is: ',dec(msg, fkey))
