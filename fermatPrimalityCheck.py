@@ -11,4 +11,4 @@ def fermatPrimeCheck(n, k = 5):
         if (pow(a, n-1, n) != 1):
             return False 
     return output
-print(fermatPrimeCheck(102))
+print(fermatPrimeCheck(561))
