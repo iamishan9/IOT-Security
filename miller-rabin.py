@@ -22,7 +22,9 @@ def millerRabin(n, k=5):
     for i in range(0,k):
         a=randint(1,n-1)
         if(witness(a,n)):
+            # n is a composite number
             return True
+    # n is a prime number
     return False
 
 print(millerRabin(2097))
