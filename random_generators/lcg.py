@@ -31,7 +31,18 @@
 # for i in range(10):
 #     print(lcg())
 
-import random2
+# import random2
+import time
+class Seed(object):
+    # Function that generates seed
+    def generate_seed(self):
+        pass
+
+
+class TimeSeed(Seed):
+    """ Generates seed from current time """
+    def generate_seed(self):
+        return time.time()
 
 def LCG(seed, n, a= 1140671485, c=128201163, m=2**24):
     numbers = []
@@ -41,10 +52,10 @@ def LCG(seed, n, a= 1140671485, c=128201163, m=2**24):
 
     return numbers
 
-rand = random2.randint(1, 10000000) 
-# rand *= 1000000
-print('rand is ', rand)
-print(LCG(rand, 1))
+# rand = random2.randint(1, 10000000) 
+# # rand *= 1000000
+# print('rand is ', rand)
+# print(LCG(rand, 1))
 
 
 # def generate_lcg( num_iterations ):
