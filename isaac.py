@@ -151,10 +151,5 @@ if __name__ == "__main__":
     print("Print using hexadecimal notation: {:08x}".format(number), end="\n")
     print("Print using decimal notation: {}".format(number))
 
-    #for i in range(5):
-     #   res = x.rand(2 ** 32)
-      #  if i > 0 and i % 8 == 0:
-       #     print()
-        #print("{:08x}".format(res), end="\n")
-    #print()
+ 
 
