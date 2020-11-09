@@ -33,10 +33,10 @@ def without_recursion(X, e):
 
   return res, step
 
-result = without_recursion(2, 15)
+result = without_recursion(2, 5)
 print('result is {} which was done in {} steps'.format(result[0], result[1]))
 
 #test
-print(pow_h(2,4,100))
+# print(pow_h(2,4,100))
 # for i in range(16):
 #     print(i, 2**i, pow_h(2, i, 100))
