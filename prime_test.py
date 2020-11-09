@@ -1,4 +1,4 @@
-from prime_gen_test import eratosthenes
+from prime_gen_test import eratosthenes, miller_rabin
 
 prime_numbers = eratosthenes.gen_prime(550)
 p, q = 0, 0
@@ -6,13 +6,14 @@ p_done = False
 # q_done = False
 
 for i in reversed(prime_numbers):
-    if not(p_done):
-        if i%4==3:
-            p=i
-            p_done= True
-    else:
-        if i%4==3:
-            q=i
-            break
+    if not miller_rabin.millerRabin(i):
+        if not(p_done):
+            if i%4==3:
+                p=i
+                p_done= True
+        else:
+            if i%4==3:
+                q=i
+                break
 
 print('p is {} and q is {}'.format(p, q))
