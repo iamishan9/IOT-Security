@@ -129,7 +129,7 @@ _,a,b=xgcd(p,q)
 r= random.getrandbits(bits)
 
 x0 = (a*p*r + b*q+r) % (p*q)
-       
+
 c, xt = BGW_enc(p, q, x0, m)
 
 print(("Message: %s" % msg))

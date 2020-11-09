@@ -69,6 +69,3 @@ if __name__ == "__main__":
 	rand = LfsrRandom(0b10110100000000001, 1)
 	for i in range(20):
 		print(rand.random())
-	# for i in range(20):
-	# 	print(rand.randbit())
-
