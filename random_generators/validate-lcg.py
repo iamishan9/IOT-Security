@@ -1,6 +1,5 @@
 import math
 
-
 def gcd(x, y):
 
     while(y):

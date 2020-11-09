@@ -13,7 +13,6 @@ class BBS:
         self.start = start
         self.end = end
         self.getPrimes()
-       
 
     #Generates prime numbers between start and end
     def generate_primes(self, start, end):

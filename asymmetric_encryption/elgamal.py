@@ -314,26 +314,26 @@ keys = None;
 cipher= None;
 
 while True:
-  value = input("Choose 1 for generating key, 2 for encrypting message, 3 for decrypting message, 4 for quitting the program.:\n")
-  if value=="1":
-    keys=generate_keys()
-    priv = keys['privateKey']
-    pub = keys['publicKey']
-    cipher=None
-  elif value=="2":
-    if keys is None:
-      print("Generate key first.\n")
-      continue
-    else:
-      message=input("Enter message:")
-      cipher=digit(pub,str(message))
-      print("Message encrypted\n")
+	value = input("Choose 1 for generating key, 2 for encrypting message, 3 for decrypting message, 4 for quitting the program.:\n")
+	if value=="1":
+		keys=generate_keys()
+		priv = keys['privateKey']
+		pub = keys['publicKey']
+		cipher=None
+	elif value=="2":
+		if keys is None:
+			print("Generate key first.\n")
+			continue
+		else:
+			message=input("Enter message:")
+			cipher=digit(pub,str(message))
+			print("Message encrypted\n")
 
-  elif value=="3":
-    if cipher is None:
-      print("No message encrypted. Encrypt first\n")
-    else:
-      decrypted_message=decipher(priv,pub,cipher)
-      print("The message received is:", decrypted_message,"\n") 
-  else:
-    break
+	elif value=="3":
+		if cipher is None:
+			print("No message encrypted. Encrypt first\n")
+		else:
+			decrypted_message=decipher(priv,pub,cipher)
+			print("The message received is:", decrypted_message,"\n") 
+	else:
+		break
