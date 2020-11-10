@@ -101,47 +101,45 @@ def LCG(seed, n, a= 1140671485, c=128201163, m=2**24):
 
     return numbers
 
-if __name__ == '__main__':
-    availableOpt = ["-d", "-e"]
-    if len(sys.argv) == 1 or sys.argv[1] not in availableOpt:
-        print(help)
-        exit(0)
+def main(msg, option):
+    availableOpt = ["d", "e"]
+    # if len(sys.argv) == 1 or sys.argv[1] not in availableOpt:
+    #     print(help)
+    #     exit(0)
 
     # msg = "ishan"
     # key = get_random_string(len(msg))
 
 
-    msg = "0010010100011110011111110"
+    # msg = "0010010100011110011111110"
     # key = rand_key(len(msg))
-    rand = random2.randint(1, 10000000)
-    key = LCG(rand, 1)[0]
-    print('key is ', key)
-    binkey = bin(key)[2:]
-    print('bin key is ', binkey, ' type is ', type(binkey))
-    print('length of key is {} and msg is {}'.format(len(binkey), len(msg)))
+    if option == availableOpt[1]:
+        rand = random2.randint(1, 10000000)
+        key = LCG(rand, 1)[0]
+        print('key is ', key)
+        binkey = bin(key)[2:]
+        print('bin key is ', binkey, ' type is ', type(binkey))
+        print('length of key is {} and msg is {}'.format(len(binkey), len(msg)))
 
-    lkey = len(binkey)
-    lmsg = len(msg)
+        lkey = len(binkey)
+        lmsg = len(msg)
 
-    quo = lmsg / lkey
-    rem = lmsg % lkey
+        quo = lmsg / lkey
+        rem = lmsg % lkey
 
-    print('quo is {} and rem is {}'.format(int(quo), rem))
+        print('quo is {} and rem is {}'.format(int(quo), rem))
 
-    fkey = ''
-    for i in range(int(quo)):
-        fkey += binkey
-    
-    fkey += binkey[:rem]
+        fkey = ''
+        for i in range(int(quo)):
+            fkey += binkey
+        
+        fkey += binkey[:rem]
+        print('final keyy is {} and its length is {} '.format(fkey, len(fkey)))
 
-    print('final keyy is {} and its length is {} '.format(fkey, len(fkey)))
-
-    
-    if sys.argv[1] == availableOpt[1]:
         print('msg is ', msg)
         print('key is ', key)
         print('encrypted msg is: ',enc(msg, fkey))
-    elif sys.argv[1] == availableOpt[0]:
+    elif option == availableOpt[0]:
         msg = input("Enter the received msg: ")
         key = input("Enter the key used: ")
         print('original msg is: ',dec(msg, key))
