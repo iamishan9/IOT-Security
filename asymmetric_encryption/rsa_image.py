@@ -3,15 +3,17 @@ best done on google colab
 '''
 
 from random import randrange, getrandbits
+from skimage import io
 import cv2
 import numpy as np
-from google.colab.patches import cv2_imshow
+# from google.colab.patches import cv2_imshow
 import matplotlib.pyplot as plt
-%matplotlib inline
+# %matplotlib inline
 
-my_img = cv2.imread('image.jpg')
+my_img = io.imread('./image.jpg')
 # cv2_imshow(my_img)
-plt.imshow(my_img, cmap="gray")
+# plt.imshow(my_img, cmap="gray")
+# plt.show()
 
 
 height, width = my_img.shape[0], my_img.shape[1]
@@ -166,9 +168,15 @@ for i in range(0, height):
         C3 = C3 % 256
         my_img[i, j] = [C1, C2, C3]
 
-
-# plt.imshow(my_img, cmap="gray")
-cv2_imshow(my_img)
+fig=plt.figure()
+fig.add_subplot(1,2, 1)
+# ax = plt.gca()
+# ax.axes.xaxis.set_visible(False)
+# ax.axes.yaxis.set_visible(False)
+plt.xlabel('Image encryption')
+plt.imshow(my_img, cmap="gray")
+# plt.show()
+# io.imshow(my_img)
 
 
 # Step 6: Decryption
@@ -180,5 +188,14 @@ for i in range(0, height):
         M3 = power(b, D, N)
         my_img[i, j] = [M1, M2, M3]
 
-cv2_imshow(my_img)
-# plt.imshow(my_img, cmap="gray")
+# io.imshow(my_img)
+
+
+fig.add_subplot(1,2, 2)
+plt.imshow(my_img, cmap="gray")
+# ax = plt.gca()
+# ax.axes.xaxis.set_visible(False)
+# ax.axes.yaxis.set_visible(False)
+plt.xlabel('Image decryption')
+plt.show(block='True')
+
