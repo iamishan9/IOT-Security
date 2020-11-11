@@ -1,17 +1,13 @@
 import os
 import sys
 import string
-import random2
+import random
 
 # abc = string.ascii_lowercase
 # one_time_pad = list(abc)
 
 # print('abc is ', abc)
 # random.shuffle(one_time_pad)
-
-help = """python otp.py -e|-d
--e for encryption
--d for decryption """
 
 # def get_random_string(length):
 #     letters = string.ascii_lowercase
@@ -103,18 +99,9 @@ def LCG(seed, n, a= 1140671485, c=128201163, m=2**24):
 
 def main(msg, option):
     availableOpt = ["d", "e"]
-    # if len(sys.argv) == 1 or sys.argv[1] not in availableOpt:
-    #     print(help)
-    #     exit(0)
 
-    # msg = "ishan"
-    # key = get_random_string(len(msg))
-
-
-    # msg = "0010010100011110011111110"
-    # key = rand_key(len(msg))
     if option == availableOpt[1]:
-        rand = random2.randint(1, 10000000)
+        rand = random.randint(1, 10000000)
         key = LCG(rand, 1)[0]
         print('key is ', key)
         binkey = bin(key)[2:]
