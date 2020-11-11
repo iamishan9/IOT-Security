@@ -41,14 +41,15 @@ def main():
     register = LFSR(fill=[0,1,1,0,1,0,0,0,0,1,0], taps=[8])
 
     # advance the register 3 steps
-    for i in range(3):
+    for i in range(15):
         register.step()
         print("Step {}\n{}".format(i+1, register))
 
     # generate a couple of pseudorandom numbers
     print("Pseudorandom numbers:")
-    for _ in range(3):
-        print(register.rand(12))
+    for _ in range(15):
+
+        print(register.rand(25))
 
 if __name__ == '__main__':
     main()

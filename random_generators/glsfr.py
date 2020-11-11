@@ -58,8 +58,8 @@ class LfsrRandom(random.Random):
 		return result
 	
 	
-	def random(self):
-		return self.getrandbits(52) / (1 << 52)
+	def random(self,number_bit=20):
+		return self.getrandbits(number_bit) 
 
 
 
@@ -67,5 +67,5 @@ class LfsrRandom(random.Random):
 if __name__ == "__main__":
 	# Polynomial: x^16 + x^14 + x^13 + x^11 + x^0
 	rand = LfsrRandom(0b10110100000000001, 1)
-	for i in range(20):
-		print(rand.random())
+	for i in range(10):
+		print(rand.random(number_bit=20))

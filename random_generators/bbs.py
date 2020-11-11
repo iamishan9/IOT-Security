@@ -44,9 +44,3 @@ class BBS:
             x = (x**2)%M
             yield x 
         
-if __name__ == "__main__":
-    bbs = BBS(286, 100, 200)
-    gen = bbs.Generator()
-    for _ in range(0,10):
-        x = next(gen)
-        print(x)
