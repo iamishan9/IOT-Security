@@ -32,17 +32,17 @@
 #     print(lcg())
 
 # import random2
-import time
-class Seed(object):
-    # Function that generates seed
-    def generate_seed(self):
-        pass
+# import time
+# class Seed(object):
+#     # Function that generates seed
+#     def generate_seed(self):
+#         pass
 
 
-class TimeSeed(Seed):
-    """ Generates seed from current time """
-    def generate_seed(self):
-        return time.time()
+# class TimeSeed(Seed):
+#     """ Generates seed from current time """
+#     def generate_seed(self):
+#         return time.time()
 
 def LCG(seed, n, a= 1140671485, c=128201163, m=2**24):
     numbers = []
@@ -51,6 +51,35 @@ def LCG(seed, n, a= 1140671485, c=128201163, m=2**24):
         numbers.append(seed)
 
     return numbers
+    
+def convertBin(msg):
+    arr = []
+    for i in range (0,len(msg)):
+        arr.append(int(msg[i]))
+    
+    return arr
+
+def enc(msg, key):
+    codedKey = ''
+    msg = convertBin(msg)
+    key = convertBin(key)
+
+    for i in range(0,len(msg)):
+        code = (msg[i]+key[i])%2
+        codedKey += str(code)
+
+    return codedKey
+
+def dec(codedKey, key):
+    codedKey = convertBin(codedKey)
+    key = convertBin(key)
+    msg = ''
+
+    for i in range(0,len(codedKey)):
+        txt = (codedKey[i]+key[i])%2
+        msg += str(txt)
+
+    return msg
 
 # rand = random2.randint(1, 10000000) 
 # # rand *= 1000000
