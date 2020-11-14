@@ -1,20 +1,15 @@
 '''
-best done on google colab
+Encryption and decryption of an image using RSA
 '''
 
-from random import randrange, getrandbits
-from skimage import io
 import cv2
 import numpy as np
-# from google.colab.patches import cv2_imshow
+from skimage import io
 import matplotlib.pyplot as plt
-# %matplotlib inline
+from random import randrange, getrandbits
+
 
 my_img = io.imread('./image.jpg')
-# cv2_imshow(my_img)
-# plt.imshow(my_img, cmap="gray")
-# plt.show()
-
 
 height, width = my_img.shape[0], my_img.shape[1]
 print('height is {} and width is {}'.format(height, width))
@@ -51,7 +46,6 @@ def is_prime(N, K):
         return True
     if N <= 1 or N % 2 == 0:
         return False
-
     # Find d such that d*(2^r)=X-1
     d = N-1
     while d % 2 != 0:
@@ -92,7 +86,9 @@ print(N)
 print(eulerTotient)
 
 
-# Step 3: Find E such that GCD(E,eulerTotient)=1(i.e., e should be co-prime) such that it satisfies this condition:-  1<E<eulerTotient
+# Step 3: Find E such that GCD(E,eulerTotient)=1
+# (i.e., e should be co-prime) such that it satisfies this condition:- 
+#  1<E<eulerTotient
 
 def GCD(a, b):
     if a == 0:
@@ -170,13 +166,9 @@ for i in range(0, height):
 
 fig=plt.figure()
 fig.add_subplot(1,2, 1)
-# ax = plt.gca()
-# ax.axes.xaxis.set_visible(False)
-# ax.axes.yaxis.set_visible(False)
+
 plt.xlabel('Image encryption')
 plt.imshow(my_img, cmap="gray")
-# plt.show()
-# io.imshow(my_img)
 
 
 # Step 6: Decryption
@@ -188,14 +180,8 @@ for i in range(0, height):
         M3 = power(b, D, N)
         my_img[i, j] = [M1, M2, M3]
 
-# io.imshow(my_img)
-
-
 fig.add_subplot(1,2, 2)
 plt.imshow(my_img, cmap="gray")
-# ax = plt.gca()
-# ax.axes.xaxis.set_visible(False)
-# ax.axes.yaxis.set_visible(False)
+
 plt.xlabel('Image decryption')
 plt.show(block='True')
-
