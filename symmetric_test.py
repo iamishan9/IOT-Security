@@ -88,9 +88,10 @@ otp_key = otp.rand_key(len(msg))
 
 print(bcolors.OKGREEN+"Encrypting message (without using random generator):\n"+bcolors.ENDC)
 encrypted_message=otp.enc(msg,otp_key)
+decMsg = otp.dec(encrypted_message, otp_key)
 print('Sent message is:\t',msg)
 print('Encrypted message is:\t',encrypted_message)
-print('Received message is:\t',otp.dec(encrypted_message, otp_key))
+print('Received message is:\t',decMsg)
 print("\n")
 
 print(bcolors.OKGREEN+"\n\nEncrypting message (using key as RSA generated number):\n"+bcolors.ENDC)
@@ -100,3 +101,6 @@ print('Encrypted message is:\t',encrypted_message)
 print('Received message is:\t',dec(encrypted_message, fkey))
 print("\n")
 
+
+if decMsg == msg:
+    pyb.LED(2).on()
