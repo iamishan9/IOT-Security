@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-def gen_prime( end, start=2,):
+def gen_prime(end):
+    start=2
     # list of prime numbers
     primes = []
     start = 2 if start < 2 else start

@@ -4,29 +4,40 @@ import random
 import sympy as sp
 import time
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
-prime_numbers = eratosthenes.gen_prime(10, 0)
-print(prime_numbers)
-p, q = 0, 0
-p_done = False
+print(bcolors.OKGREEN+"\n Generating prime numbers between 500 and 600 using Eratosthenes Seive:"+bcolors.ENDC)
+prime_numbers = eratosthenes.gen_prime(500)
+print(prime_numbers,"\n")
+# p, q = 0, 0
+# p_done = False
 # q_done = False
 
-for i in reversed(prime_numbers):
-    if not miller_rabin.millerRabin(i):
-        if not(p_done):
-            if i%4==3:
-                p=i
-                p_done= True
-        else:
-            if i%4==3:
-                q=i
-                break
+# for i in reversed(prime_numbers):
+#     if not miller_rabin.millerRabin(i):
+#         if not(p_done):
+#             if i%4==3:
+#                 p=i
+#                 p_done= True
+#         else:
+#             if i%4==3:
+#                 q=i
+#                 break
 
-print('p is {} and q is {}'.format(p, q))
+# print('p is {} and q is {}'.format(p, q))
 
 bbs_number = bbs.BBS(286, 100, 200)
 gen = bbs_number.Generator()
-print('Rand no       Fermat check   Miller Rabin check  isPrime check')
+print(bcolors.OKGREEN+'Rand no       Fermat check   Miller Rabin check  isPrime check'+bcolors.ENDC)
 for _ in range(0,10):
     time.sleep(0.1)
     seed=lcg.TimeSeed()

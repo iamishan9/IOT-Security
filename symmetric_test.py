@@ -2,6 +2,17 @@ from symmetric_encryption import otp
 import time
 from random_generators import lcg
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
 class Seed(object):
     # Function that generates seed
     def generate_seed(self):
@@ -75,14 +86,14 @@ fkey += binkey[:rem]
 
 otp_key = otp.rand_key(len(msg))
 
-print("Encrypting message (without using random generator):\n")
+print(bcolors.OKGREEN+"Encrypting message (without using random generator):\n"+bcolors.ENDC)
 encrypted_message=otp.enc(msg,otp_key)
 print('Sent message is:\t',msg)
 print('Encrypted message is:\t',encrypted_message)
 print('Received message is:\t',otp.dec(encrypted_message, otp_key))
 print("\n")
 
-print("\n\nEncrypting message (using key as RSA generated number):\n")
+print(bcolors.OKGREEN+"\n\nEncrypting message (using key as RSA generated number):\n"+bcolors.ENDC)
 encrypted_message=enc(msg,fkey)
 print('Sent message is:\t',msg)
 print('Encrypted message is:\t',encrypted_message)

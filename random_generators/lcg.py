@@ -44,6 +44,19 @@
 #     def generate_seed(self):
 #         return time.time()
 
+import time
+
+class Seed(object):
+    # Function that generates seed
+    def generate_seed(self):
+        pass
+
+class TimeSeed(Seed):
+    """ Generates seed from current time """
+
+    def generate_seed(self):
+        return time.time()
+
 def LCG(seed, n, a= 1140671485, c=128201163, m=2**24):
     numbers = []
     for i in range(n):
