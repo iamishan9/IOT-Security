@@ -45,6 +45,9 @@
 #         return time.time()
 
 import time
+import math
+import numpy as np
+import scipy.stats as st
 
 class Seed(object):
     # Function that generates seed
@@ -64,6 +67,79 @@ def LCG(seed, n, a= 1140671485, c=128201163, m=2**24):
         numbers.append(seed)
 
     return numbers
+
+  
+def gcd(x, y): 
+  
+   while(y): 
+       x, y = y, x % y 
+  
+   return x 
+
+def prime_factors(n):
+    i = 2
+    factors = []
+    while i * i <= n:
+        if n % i:
+            i += 1
+        else:
+            n //= i
+            factors.append(i)
+    if n > 1:
+        factors.append(n)
+    return factors
+def is_coprime(x, y):
+  return gcd(x, y) == 1
+
+def parameters_check_lcg(a,c,m):
+  suitable=True
+  if c == 0:
+    suitable = False
+  if not is_coprime(c,m):
+    suitable=False
+  p=prime_factors(m)
+  for i in p:
+    if not (a-1)%i==0:
+      suitable=False
+      break
+
+  if m%4==0:
+    if not (a-1)%4==0:
+      suitable=False
+
+  return suitable
+
+# Assuming number of runs greater than 10
+def runs_test(d, v, alpha = 0.05):
+    # Get positive and negative values
+    mask = d > v
+    # get runs mask
+    p = mask == True
+    n = mask == False
+    xor = np.logical_xor(p[:-1], p[1:]) 
+    # A run can be identified by positive 
+    # to negative (or vice versa) changes
+    d = sum(xor) + 1 # Get number of runs
+
+    n_p = sum(p) # Number of positives
+    n_n = sum(n)
+    # Temporary intermediate values
+    tmp = 2 * n_p * n_n 
+    tmps = n_p + n_n
+    # Expected value
+    r_hat = np.float64(tmp) / tmps + 1
+    # Variance
+    s_r_squared = (tmp*(tmp - tmps)) / (tmps*tmps*(tmps-1))
+    # Standard deviation
+    s_r =  np.sqrt(s_r_squared)
+    # Test score
+    z = (d - r_hat) / s_r
+
+    # Get normal table 
+    z_alpha = st.norm.ppf(1-alpha)
+    # Check hypothesis
+    return z, z_alpha
+
     
 def convertBin(msg):
     arr = []
