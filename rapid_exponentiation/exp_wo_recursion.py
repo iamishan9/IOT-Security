@@ -1,3 +1,8 @@
+'''
+Contains a function to generate exponentiation without recursion.
+'''
+
+
 def find_expo(X, e):
   e = bin(e)[3:] 
   e = str(e)

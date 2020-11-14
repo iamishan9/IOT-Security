@@ -1,4 +1,9 @@
 import math
+'''
+contains functions which allow us to validate lcg
+'''
+
+
 
 def gcd(x, y):
 
