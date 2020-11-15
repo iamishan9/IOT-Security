@@ -55,12 +55,29 @@ for i in range(10):
     print(mt_rn.get_random_number())
 
 
-print("\nGenerating 10 random numbers using Blum Blum Shub:")
-bbs_rn = bbs.BBS(286, 100, 200)
-gen = bbs_rn.Generator()
-for _ in range(0,10):
+print("\nGenerating 200 random numbers using Blum Blum Shub in a sorted manner:")
+
+arr = []
+for _ in range(0,200):
+    time.sleep(0.01)
+    seed=TimeSeed()
+    random_number = seed.generate_seed()
+    # Get number after decimal point of seed because these are the numbers that actually vary
+    random_number = random_number % 1
+    random_number=str(random_number)
+    # Check if the number is decimal first
+    if random_number.find('.') != -1:
+        random_number = random_number.split('.')[1]
+    # Do not split if no decimal point and just take the integer as it is
+    random_number = int(random_number)
+    bbs_rn = bbs.BBS(random_number)
+    gen = bbs_rn.Generator()
     x = next(gen)
-    print(x)
+    arr.append(x)
+    # print(x)
+arr.sort()
+print(arr)
+# print('arr count is ',len(arr))
 
 print("\nGenerating 10 random numbers using ISAAC:")
 issac_rn = isaac.Isaac()
