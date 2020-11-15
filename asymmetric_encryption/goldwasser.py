@@ -100,46 +100,4 @@ def BGW_dec(p, q, a, b, xt, c):
 
     return m
 
-p = 523
-q = 547
-bits=10
-msg='Hello studpid boy. You are a foll'
-
-# if (len(sys.argv)>1):
-#         bits=int(sys.argv[1])
-# if (len(sys.argv)>2):
-#         msg=(sys.argv[2])
-
-m=to_bits(msg)
-
-    
-
-a=1
-b=1
-
-_,a,b=xgcd(p,q)
-
-
-r= random.getrandbits(bits)
-
-x0 = (a*p*r + b*q+r) % (p*q)
-
-c, xt = BGW_enc(p, q, x0, m)
-
-print(("Message: %s" % msg))
-print(("   %s" % m))
-print(("\nNo of bits in prime is %d" % bits))
-print(("p= %d" % p))
-print(("q= %d" % q))
-print(("a= %d" % a))
-print(("b= %d" % b))
-print(("r= %d" % r))
-print(("x0= %d" % x0))
-print(("ap+bq: %d" % (a*p+b*q)))
-
-print("\nCiphertext:", c)
-
-d = BGW_dec(p, q, a, b, xt, c)
-    
-print(("Decrypted: %s" % from_bits(d)))
 
