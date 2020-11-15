@@ -1,4 +1,4 @@
-from asymmetric_encryption import goldwasser
+from asymmetric_encryption import goldwasser,elgamal,rsa
 import random
 from prime_gen_test import eratosthenes,miller_rabin
 from utils import bcolors
@@ -30,7 +30,8 @@ def check_goldwasser():
     r= random.getrandbits(bits)
     x0 = (a*p*r + b*q+r) % (p*q)
     c, xt = goldwasser.BGW_enc(p, q, x0, m)
-    print(bcolors.OKGREEN+"\nParameters chosen:",bcolors.ENDC)
+    print(bcolors.OKGREEN+"\nBLUM GOLDWASSER",bcolors.ENDC)
+    print(bcolors.OKBLUE+"\nParameters chosen:",bcolors.ENDC)
     print(("p= %d" % p))
     print(("q= %d" % q))
     print(("a= %d" % a))
@@ -45,5 +46,72 @@ def check_goldwasser():
         
     print(bcolors.OKBLUE+"Decrypted message:",bcolors.ENDC ,goldwasser.from_bits(d))
 
+def check_el_gamal():
 
+    print(bcolors.OKGREEN+"\nEL GAMAL\n",bcolors.ENDC)
+    print(bcolors.OKBLUE+"Generating keys first:",bcolors.ENDC)
+    keys = elgamal.generate_keys()
+    priv = keys['privateKey']
+    pub = keys['publicKey']
+    print("p:", pub.p)
+    print("g:", pub.g)
+    print("A:", pub.A)
+    message = 'We are testing El Gamal'
+    cipher = elgamal.digit(pub, str(message))
+    decrypted_message = elgamal.decipher(priv, pub, cipher)
+    print(bcolors.OKBLUE+"The cipher is: ",bcolors.ENDC, cipher)
+    print(bcolors.OKBLUE+"Decrypted message: ",bcolors.ENDC, decrypted_message)
+
+def check_rsa_text():
+
+    print(bcolors.OKGREEN+"\nRSA for text\n",bcolors.ENDC)
+    length = 5
+    p1= rsa.generatePrimeNumber(length)
+    p2= rsa.generatePrimeNumber(length)
+    msg = 'RSA by Joshua and Ishan'
+    print(bcolors.OKBLUE+"Parameters used\n",bcolors.ENDC)
+    print("p1 is {} and p2 is {}".format(p1,p2))
+    n,c,d = rsa.keygen(p1,p2)
+    print('n, c, d is ', n,c,d)
+    enc = rsa.encrypt(msg, n, c)
+    print(bcolors.OKBLUE+'Encrypted Message',bcolors.ENDC + '{}'.format(enc))
+    dec = rsa.decrypt(enc, n, d)
+    print(bcolors.OKBLUE+'Decrypted Message',bcolors.ENDC + '{}'.format(dec))
+
+def el_gamal_user_prompt():
+    keys = None
+    cipher = None
+
+    while True:
+        value = input(
+         bcolors.OKBLUE+"\nChoose 1 for generating key, 2 for encrypting message, 3 for decrypting message, 4 for quitting the program.:\n"+bcolors.ENDC)
+        if value == "1":
+            keys = elgamal.generate_keys()
+            priv = keys['privateKey']
+            pub = keys['publicKey']
+            print(bcolors.OKGREEN+"Key generated.\n",bcolors.ENDC)
+
+            cipher = None
+        elif value == "2":
+            if keys is None:
+                print(bcolors.WARNING+"Generate key first.\n",bcolors.ENDC)
+                continue
+            else:
+                message = input(bcolors.OKBLUE+"Enter message:"+bcolors.ENDC)
+                cipher = elgamal.digit(pub, str(message))
+                print(bcolors.OKGREEN+"Message encrypted\n",bcolors.ENDC)
+
+        elif value == "3":
+            if cipher is None:
+                print(bcolors.WARNING+"No message encrypted. Encrypt first\n",bcolors.ENDC)
+            else:
+                decrypted_message = elgamal.decipher(priv, pub, cipher)
+                print(bcolors.OKGREEN+"The encrypted message is:",bcolors.ENDC, cipher, "\n")
+                print(bcolors.OKGREEN+"The message received is:",bcolors.ENDC, decrypted_message, "\n")
+        else:
+            break
+    
+check_rsa_text()
 check_goldwasser()
+check_el_gamal()
+el_gamal_user_prompt()
