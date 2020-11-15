@@ -1,8 +1,8 @@
-import scipy.io.wavfile
-import numpy
-import time
-import matplotlib.pyplot as plt
 import sys
+import time
+import numpy
+import scipy.io.wavfile
+import matplotlib.pyplot as plt
 
 start = time.time()
 
@@ -16,8 +16,6 @@ print(type(dataarray))
 a, b = dataarray.shape
 tup = (a, b)
 data = data.astype(numpy.int16)
-#data = numpy.asarray(data, dtype=numpy.int16)
-#print(data.flags)
 data.setflags(write=1)
 #print(data.flags)
 print((a,b))
@@ -45,6 +43,6 @@ plt.show()
 
 end = time.time()
 ElspTime = (end-start)
-print('\n Total time taken from your life: ', +ElspTime, 'sec')
+print('\n Total time taken: ', +ElspTime, 'sec')
 
 
