@@ -1,5 +1,6 @@
-from asymmetric_encryption import goldwasser,elgamal,rsa
+from asymmetric_encryption import goldwasser,elgamal,rsa,rsa_image
 import random
+from asymmetric_encryption.rsa_audio import rsa_audio_enc_dec
 from prime_gen_test import eratosthenes,miller_rabin
 from utils import bcolors
 
@@ -110,8 +111,14 @@ def el_gamal_user_prompt():
                 print(bcolors.OKGREEN+"The message received is:",bcolors.ENDC, decrypted_message, "\n")
         else:
             break
+
+
     
-check_rsa_text()
-check_goldwasser()
-check_el_gamal()
-el_gamal_user_prompt()
+
+# check_rsa_text()
+# rsa_image.start()
+rsa_audio_enc_dec.encrypt()
+rsa_audio_enc_dec.decrypt()
+# check_goldwasser()
+# check_el_gamal()
+# el_gamal_user_prompt()

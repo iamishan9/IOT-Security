@@ -67,7 +67,7 @@ def generatePrimeNumber(length):
 
 
 def start():
-    my_img = io.imread('./image.jpg')
+    my_img = io.imread('./asymmetric_encryption/image.jpg')
 
     height, width = my_img.shape[0], my_img.shape[1]
     print('height is {} and width is {}'.format(height, width))

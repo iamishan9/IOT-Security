@@ -102,20 +102,3 @@ def generatePrimeNumber(length):
     return A
 
 
-# p1 = 13
-# p2 = 17
-length = 5
-
-p1= generatePrimeNumber(length)
-p2= generatePrimeNumber(length)
-msg = 'jyapu shakya'
-print("p1 is {} and p2 is {}".format(p1,p2))
-
-
-n,c,d = keygen(p1,p2)
-
-print('n, c, d is ', n,c,d)
-enc = encrypt(msg, n, c)
-print('encrypted form is {}'.format(enc))
-dec = decrypt(enc, n, d)
-print('decrypted form is {}'.format(dec))

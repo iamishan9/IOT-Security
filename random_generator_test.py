@@ -1,27 +1,16 @@
+# importing all the libraries
 from random_generators import lcg, glsfr, mersenne_twister as mt, bbs, isaac, xorshift as xs
 import time
 import timeit
 import numpy as np
-from utils import bcolors
+from utils import bcolors, TimeSeed
 
 
-class Seed(object):
-    # Function that generates seed
-    def generate_seed(self):
-        pass
 
-
-class TimeSeed(Seed):
-    """ Generates seed from current time """
-
-    def generate_seed(self):
-        return time.time()
-
-
-list_lcg_rn = []
 
 lcg_time, xorshift_time = 0, 0
 print(bcolors.OKGREEN+"Generating 10 random numbers using Linear Congruetional Generator (LCG):", bcolors.ENDC)
+list_lcg_rn=[]
 for i in range(10):
     time.sleep(0.01)
     seed = TimeSeed()

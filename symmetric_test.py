@@ -1,29 +1,8 @@
 from symmetric_encryption import otp
 import time
 from random_generators import lcg
+from utils import bcolors, TimeSeed
 
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-
-class Seed(object):
-    # Function that generates seed
-    def generate_seed(self):
-        pass
-
-
-class TimeSeed(Seed):
-    """ Generates seed from current time """
-
-    def generate_seed(self):
-        return time.time()
 
 def convertBin(msg):
     arr = []
@@ -54,6 +33,7 @@ def dec(codedKey, key):
     return msg
 
 
+# message to be encrypted
 msg = '10001001001001'
 seed=TimeSeed()
 random_number = seed.generate_seed()
@@ -68,7 +48,9 @@ if random_number.find('.') != -1:
 # Do not split if no decimal point and just take the integer as it is
 random_number = int(random_number)
 start_time = time.time()
+# using seed as milisecond part of time
 key = lcg.LCG(random_number, 1)[0]
+
 t1=time.time()-start_time
 binkey = bin(key)[2:]
 
@@ -102,5 +84,5 @@ print('Received message is:\t',dec(encrypted_message, fkey))
 print("\n")
 
 
-if decMsg == msg:
-    pyb.LED(2).on()
+# if decMsg == msg:
+    # pyb.LED(2).on()

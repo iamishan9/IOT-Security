@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
+# function to generate prime numbers using eratosthenes seive
 def gen_prime(end):
     start=2
-    # list of prime numbers
+    # adding all numbers to the list of prime numbers
     primes = []
     start = 2 if start < 2 else start
     for i in range(start,end+1):
@@ -23,6 +24,3 @@ def gen_prime(end):
         i = i+1
     
     return primes
-
-# printing the remaining list
-# print (primes)

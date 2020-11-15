@@ -1,3 +1,5 @@
+import time
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -8,4 +10,18 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
+    
+class Seed(object):
+    # Function that generates seed
+    def generate_seed(self):
+        pass
+
+
+class TimeSeed(Seed):
+    """ Generates seed from current time """
+
+    def generate_seed(self):
+        return time.time()
+
 
