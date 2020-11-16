@@ -182,7 +182,7 @@ def generate_keys(numBits=256, confidence=32):
     return {'privateKey': privateKey, 'publicKey': publicKey}
 
 # encrypts a string sPlaintext using the public key k
-def encrypt(key, sPlaintext):
+def digit(key, sPlaintext):
     z = encode(sPlaintext, key.numBits)
     cipher_pairs = []
     for i in z:

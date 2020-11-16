@@ -76,7 +76,7 @@ def check_el_gamal():
 
     # message for encyption
     message = 'We are testing El Gamal'
-    cipher = elgamal.encrypt(pub, str(message))
+    cipher = elgamal.digit(pub, str(message))
 
     # printing cipher and decypted message
     decrypted_message = elgamal.decipher(priv, pub, cipher)
@@ -133,7 +133,7 @@ def el_gamal_user_prompt():
                 continue
             else:
                 message = input(bcolors.OKBLUE+"Enter message:"+bcolors.ENDC)
-                cipher = elgamal.encrypt(pub, str(message))
+                cipher = elgamal.digit(pub, str(message))
                 print(bcolors.OKGREEN+"Message encrypted\n",bcolors.ENDC)
         # input decrypt message
         elif value == "3":
