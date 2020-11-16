@@ -5,7 +5,6 @@ Contains a class for Diffie Hellman key exchange with
 3. encryption of message
 4. decryption of message
 '''
-
 class DH_Endpoint(object):
     def __init__(self, public_key1, public_key2, private_key):
         self.public_key1 = public_key1

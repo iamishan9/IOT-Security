@@ -1,7 +1,6 @@
 '''
 Contains a function to generate exponentiation using recursion
 '''
-
 def find_expo(X, e):
   if e==0:
     return 1

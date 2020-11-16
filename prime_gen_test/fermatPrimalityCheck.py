@@ -1,6 +1,8 @@
+# importing necessary libraries
 from random import randint
 
 
+# method to check primality
 def fermatPrimeCheck(n, k=5):
     # checking the number of digits and ending digit of the number
     if (n > 9 and (n % 10 == 0 or n % 10 == 2 or n % 10 == 4 or n % 10 == 5 or n % 10 == 6 or n % 10 == 8)):

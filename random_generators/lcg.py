@@ -4,7 +4,7 @@ import math
 import numpy as np
 import scipy.stats as st
 
-
+# lcg random generator
 def LCG(seed, n, a=1140671485, c=128201163, m=2**24):
     numbers = []
     for i in range(n):
@@ -13,7 +13,7 @@ def LCG(seed, n, a=1140671485, c=128201163, m=2**24):
 
     return numbers
 
-
+# greatest common divisor
 def gcd(x, y):
 
     while(y):
@@ -21,7 +21,7 @@ def gcd(x, y):
 
     return x
 
-
+# finding prime factors
 def prime_factors(n):
     i = 2
     factors = []
@@ -35,15 +35,16 @@ def prime_factors(n):
         factors.append(n)
     return factors
 
-
+# check coprime
 def is_coprime(x, y):
     return gcd(x, y) == 1
 
-
+# check if parameters for lcg are good
 def parameters_check_lcg(a, c, m):
     suitable = True
     if c == 0:
         suitable = False
+    # checking coptime
     if not is_coprime(c, m):
         suitable = False
     p = prime_factors(m)
@@ -58,44 +59,15 @@ def parameters_check_lcg(a, c, m):
 
     return suitable
 
-# Assuming number of runs greater than 10
-
-
-# def runs_test(d, v, alpha=0.05):
-#     # Get positive and negative values
-#     mask = d > v
-#     # get runs mask
-#     p = mask == True
-#     n = mask == False
-#     xor = np.logical_xor(p[:-1], p[1:])
-#     # A run can be identified by positive
-#     # to negative (or vice versa) changes
-#     d = sum(xor) + 1  # Get number of runs
-
-#     n_p = sum(p)  # Number of positives
-#     n_n = sum(n)
-#     # Temporary intermediate values
-#     tmp = 2 * n_p * n_n
-#     tmps = n_p + n_n
-#     # Expected value
-#     r_hat = np.float64(tmp) / tmps + 1
-#     # Variance
-#     s_r_squared = (tmp*(tmp - tmps)) / (tmps*tmps*(tmps-1))
-#     # Standard deviation
-#     s_r = np.sqrt(s_r_squared)
-#     # Test score
-#     z = (d - r_hat) / s_r
-
-#     # Get normal table
-#     z_alpha = st.norm.ppf(1-alpha)
-#     # Check hypothesis
-#     return z, z_alpha
-
+# checking randomness of numbers generated
 def random_test(list, med):
     n = len(list)
+
+    # odd and even percentage
     odd = 0
     even = 0
 
+    # greater or lower than median
     g_med = 0
     l_med = 0
 
@@ -116,14 +88,10 @@ def random_test(list, med):
     g_med = round(g_med/n * 100, 2)
     l_med = round(l_med/n * 100, 2)
 
-
-    # print("Percentage of random numbers")
-    # print("Total       Even         Odd")
-    # print('{}           {}         {}'.format(n, even, odd))
-
     return even, odd, g_med, l_med
 
 
+# convert to binary
 def convertBin(msg):
     arr = []
     for i in range(0, len(msg)):
@@ -131,7 +99,7 @@ def convertBin(msg):
 
     return arr
 
-
+# encrypt
 def enc(msg, key):
     codedKey = ''
     msg = convertBin(msg)
@@ -143,7 +111,7 @@ def enc(msg, key):
 
     return codedKey
 
-
+# decrypt
 def dec(codedKey, key):
     codedKey = convertBin(codedKey)
     key = convertBin(key)
@@ -152,47 +120,4 @@ def dec(codedKey, key):
     for i in range(0, len(codedKey)):
         txt = (codedKey[i]+key[i]) % 2
         msg += str(txt)
-
     return msg
-
-# rand = random2.randint(1, 10000000)
-# # rand *= 1000000
-# print('rand is ', rand)
-# print(LCG(rand, 1))
-
-
-# def generate_lcg( num_iterations ):
-#     """
-#     LCG – generates as many random numbers as requested by user, using a Linear Congruential Generator
-#     LCG uses the formula: X_(i+1) = (aX_i + c) mod m
-#     :param num_iterations: int – the number of random numbers requested
-#     :return: void
-#     """
-#     # Initialize variables
-#     x_value = 123456789.0    # Our seed, or X_0 = 123456789
-#     a = 101427               # Our "a" base value
-#     c = 321                  # Our "c" base value
-#     m = (2 ** 16)            # Our "m" base value
-
-#     # counter for how many iterations we've run
-#     counter = 0
-
-#     # Open a file for output
-#     outFile = open("lgc_output.txt", "wb")
-
-#     #Perfom number of iterations requested by user
-#     while counter < num_iterations:
-#         # Store value of each iteration
-#         x_value = (a * x_value + c) % m
-
-#         #Obtain each number in U[0,1) by diving X_i by m
-#         writeValue = str(x_value/m)
-
-#         # write to output file
-#         outFile.write(writeValue + "\n")
-#         # print "num: " + " " + str(counter) +":: " + str(x_value)
-
-#         counter = counter+1
-
-#     outFile.close()
-#     print("Successfully stored " + str(num_iterations) + " random numbers in file named: 'lgc_output.txt'.")

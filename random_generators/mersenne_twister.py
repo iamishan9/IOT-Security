@@ -3,7 +3,6 @@
 Mersenne_twister for random generation
 consists of class mersenne_rng 
 '''
-
 class mersenne_rng(object):
     def __init__(self, seed = 5489):
         self.state = [0]*624
@@ -23,7 +22,8 @@ class mersenne_rng(object):
         self.state[0] = seed
         for i in range(1,624):
             self.state[i] = self.int_32(self.f*(self.state[i-1]^(self.state[i-1]>>30)) + i)
-
+            
+    # twister function
     def twist(self):
         for i in range(624):
             temp = self.int_32((self.state[i]&self.upper_mask)+(self.state[(i+1)%624]&self.lower_mask))
@@ -46,9 +46,3 @@ class mersenne_rng(object):
 
     def int_32(self, number):
         return int(0xFFFFFFFF & number)
-
-if __name__ == "__main__":
-    rng = mersenne_rng(1131464071)
-    for i in range(10):
-        print(rng.get_random_number())
-

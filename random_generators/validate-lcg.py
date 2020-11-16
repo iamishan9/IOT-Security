@@ -3,8 +3,7 @@ import math
 contains functions which allow us to validate lcg
 '''
 
-
-
+# function for gcd
 def gcd(x, y):
 
     while(y):
@@ -12,7 +11,7 @@ def gcd(x, y):
 
     return x
 
-
+# getting prime factors
 def prime_factors(n):
     i = 2
     factors = []
@@ -27,10 +26,11 @@ def prime_factors(n):
     return factors
 
 
+# checking if two numbers are co_prime
 def is_coprime(x, y):
     return gcd(x, y) == 1
 
-
+# checking if parameters are suitable for lcg
 def parameters_check_lcg(a, c, m):
     suitable = True
     if c == 0:
@@ -49,5 +49,5 @@ def parameters_check_lcg(a, c, m):
 
     return suitable
 
-
+# testing it with some values
 print(parameters_check_lcg(1140671485, 128201163, 2**24))

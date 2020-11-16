@@ -44,7 +44,7 @@ def keygen(p1, p2):
 
     return (n, public_key, private_key)
 
-# 
+# calculating power
 def power(a, d, n):
     ans = 1
     while d != 0:
@@ -54,7 +54,7 @@ def power(a, d, n):
         d >>= 1
     return ans
 
-
+# miller rabin to test primality
 def MillerRabin(N, d):
     a = randrange(2, N - 1)
     x = power(a, d, N)
@@ -70,7 +70,7 @@ def MillerRabin(N, d):
             d <<= 1
     return False
 
-
+# function to chekc if prime
 def is_prime(N, K):
     if N == 3 or N == 2:
         return True
@@ -94,7 +94,7 @@ def generate_prime_candidate(length):
     p |= (1 << length - 1) | 1
     return p
 
-
+# find suitable prime number
 def generatePrimeNumber(length):
     A = 4
     while not is_prime(A, 128):

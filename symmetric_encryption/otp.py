@@ -51,8 +51,6 @@ def dec(codedKey, key):
     return msg
 
 # generate random numbers using LCG generator
-
-
 def LCG(seed, n, a=1140671485, c=128201163, m=2**24):
     numbers = []
     for i in range(n):
