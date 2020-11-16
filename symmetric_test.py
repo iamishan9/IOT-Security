@@ -1,3 +1,4 @@
+# importing all libraies
 from symmetric_encryption import otp
 import time
 from random_generators import lcg
@@ -51,6 +52,7 @@ print('Encrypted message is:\t',encrypted_message)
 print('Received message is:\t',decMsg)
 print("\n")
 
+# Encryption using LCG
 print(bcolors.OKGREEN+"\n\nEncrypting message (using key as RSA generated number):\n"+bcolors.ENDC)
 encrypted_message=lcg.enc(msg,fkey)
 print('Sent message is:\t',msg)

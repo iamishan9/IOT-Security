@@ -1,7 +1,9 @@
+# importing all the libraries
 from key_exchange import diffie_hellman as dh
 from utils import bcolors
 
 
+# message to be encoded
 message="This is a very secret message!!!"
 i_public=197
 i_private=199
