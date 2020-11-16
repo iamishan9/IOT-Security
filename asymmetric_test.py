@@ -2,6 +2,7 @@
 from asymmetric_encryption import goldwasser,elgamal,rsa,rsa_image
 import random
 from asymmetric_encryption.rsa_audio import rsa_audio_enc_dec
+from asymmetric_encryption.rsa_video import video_enc_dec
 from prime_gen_test import eratosthenes,miller_rabin
 from utils import bcolors
 
@@ -149,12 +150,18 @@ def el_gamal_user_prompt():
     
 # calling the functions
 check_rsa_text()
-
-# uncomment for image and audio encryption
-
-# rsa_image.start()
-# rsa_audio_enc_dec.encrypt()
-# rsa_audio_enc_dec.decrypt()
 check_goldwasser()
 check_el_gamal()
 el_gamal_user_prompt()
+
+## uncomment for image, audio and video encryption
+## for image 
+# rsa_image.start()
+
+## for audio
+# rsa_audio_enc_dec.encrypt()
+# rsa_audio_enc_dec.decrypt()
+
+## for video
+# video_enc_dec.encrypt()
+# video_enc_dec.decrypt()

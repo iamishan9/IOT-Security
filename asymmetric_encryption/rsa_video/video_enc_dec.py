@@ -99,12 +99,9 @@ def generatePrimeNumber(length):
         A = generate_prime_candidate(length)
     return A
 
-
-
-
-data = './data'
-endata = './Endata'
-dedata = './Dedata'
+data = './asymmetric_encryption/rsa_video/data'
+endata = './asymmetric_encryption/rsa_video/Endata'
+dedata = './asymmetric_encryption/rsa_video/Dedata'
 
 # generating P and Q
 length = 5
@@ -150,15 +147,15 @@ def decrypt():
 # load folder for image encryptiong and carry out encryption
 def load_image_encrypt(folder):
 
-    videofile = 'video.avi'
+    videofile = './asymmetric_encryption/rsa_video/video.avi'
 
     try:
-        if not os.path.exists('Endata'):
-            os.makedirs('Endata')
+        if not os.path.exists('./asymmetric_encryption/rsa_video/Endata'):
+            os.makedirs('./asymmetric_encryption/rsa_video/Endata')
     except OSError:
         raise ValueError('No file')
 
-    name = './data/frame'
+    name = './asymmetric_encryption/rsa_video/data/frame'
     vid_to_image(name, videofile)
 
 
@@ -171,7 +168,7 @@ def load_image_encrypt(folder):
             RGBencryption(imgV, filename1, filenum)
         else:
             break
-    vidname = 'envid.avi'
+    vidname = './asymmetric_encryption/rsa_video/envid.avi'
     image_to_vid(endata, vidname)
 
     print('Finish!', 'Encryption Done succesfully!')
@@ -179,16 +176,16 @@ def load_image_encrypt(folder):
 # load folder for image decryption and carry out decryption
 def load_image_decrypt(folder):
 
-    videofile = 'envid.avi'
+    videofile = './asymmetric_encryption/rsa_video/envid.avi'
 
     try:
-        if not os.path.exists('Dedata'):
-            os.makedirs('Dedata')
+        if not os.path.exists('./asymmetric_encryption/rsa_video/Dedata'):
+            os.makedirs('./asymmetric_encryption/rsa_video/Dedata')
     except OSError:
         raise ValueError(
             'Error Occured', 'Error: Creating directory of decrypted data')
 
-    name = './data/frame'
+    name = './asymmetric_encryption/rsa_video/data/frame'
     vid_to_image(name, videofile)
 
     for filename1 in tqdm(os.listdir(folder)):
@@ -202,7 +199,7 @@ def load_image_decrypt(folder):
         else:
             break
 
-    vidname = 'devid.avi'
+    vidname = './asymmetric_encryption/rsa_video/devid.avi'
     image_to_vid(dedata, vidname)
 
     print('Finish!', 'Decryption Done succesfully!')
@@ -223,7 +220,7 @@ def RGBencryption(my_img, filename, num):
             C2 = C2 % 256
             C3 = C3 % 256
             my_img[i, j] = [C1, C2, C3]
-    name = './Endata/'+str(filename)
+    name = './asymmetric_encryption/rsa_video/Endata/'+str(filename)
     imageio.imwrite(name, my_img, format='PNG-FI')
 
 
@@ -239,7 +236,7 @@ def RGBdecryption(my_img, filename, num):
             M2 = power(g, D, N)
             M3 = power(b, D, N)
             my_img[i, j] = [M1, M2, M3]
-    name = './Dedata/'+str(filename)
+    name = './asymmetric_encryption/rsa_video/Dedata/'+str(filename)
     imageio.imwrite(name, my_img, format='PNG-FI')
 
 # convert video to images
@@ -248,8 +245,8 @@ def vid_to_image(foldername, filename):
     cap = cv2.VideoCapture(filename)
 
     try:
-        if not os.path.exists('data'):
-            os.makedirs('data')
+        if not os.path.exists('./asymmetric_encryption/rsa_video/data'):
+            os.makedirs('./asymmetric_encryption/rsa_video/data')
         print(
             'Info!', 'Data directory is created where the frames are stored')
 
@@ -303,9 +300,4 @@ def image_to_vid(folder, vidname):
     cv2.destroyAllWindows()
     video.release()
 
-print('Encrypting')
-encrypt()
 
-print('\n\n\n\n')
-print('Decrypting')
-decrypt()

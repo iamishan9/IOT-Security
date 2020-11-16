@@ -146,7 +146,7 @@ def start():
     D = gcdExtended(E, eulerTotient)
     print(D)
     row, col = my_img.shape[0], my_img.shape[1]
-    enc = [[[0 for x in range(3000)] for y in range(3000)]
+    enc = [[0 for x in range(3000)] for y in range(3000)]
 
 
     # Encrypting image
@@ -178,8 +178,9 @@ def start():
             M3 = power(b, D, N)
             my_img[i, j] = [M1, M2, M3]
 
-    # plotting decrypted image
+    # plotting decrypted
     fig.add_subplot(1,2, 2)
     plt.imshow(my_img, cmap="gray")
+
     plt.xlabel('Image decryption')
     plt.show(block='True')
