@@ -3,93 +3,54 @@ import sys
 import string
 import random
 
-# abc = string.ascii_lowercase
-# one_time_pad = list(abc)
-
-# print('abc is ', abc)
-# random.shuffle(one_time_pad)
-
-# def get_random_string(length):
-#     letters = string.ascii_lowercase
-#     result_str = ''.join(random.choice(letters) for i in range(length))
-#     # print("Random Key of length ", length, "is:", result_str)
-#     return result_str
-
-# def encrypt(msg, key):
-#     ciphertext = ''
-#     for idx, char in enumerate(msg):
-#         charIdx = abc.index(char)
-#         keyIdx = one_time_pad.index(key[idx])
-
-#         cipher = (keyIdx + charIdx) % len(one_time_pad)
-#         ciphertext += abc[cipher]
-
-#     return ciphertext
-
-
-# def decrypt(ciphertext, key):
-#     if ciphertext == '' or key == '':
-#         return ''
-
-#     charIdx = abc.index(ciphertext[0])
-#     keyIdx = one_time_pad.index(key[0])
-
-#     cipher = (charIdx - keyIdx) % len(one_time_pad)
-#     char = abc[cipher]
-
-#     return char + decrypt(ciphertext[1:], key[1:])
 
 def convertBin(msg):
     arr = []
-    for i in range (0,len(msg)):
+    for i in range(0, len(msg)):
         arr.append(int(msg[i]))
-    
+
     return arr
 
-def rand_key(p): 
-    
-    # Variable to store the  
-    # string 
-    key1 = "" 
+# generate a random key of length p
+def rand_key(p):
 
-    # Loop to find the string 
-    # of desired length 
-    for i in range(p): 
-        # randint function to generate 
-        # 0, 1 randomly and converting  
-        # the result into str 
-        temp = str(random.randint(0, 1)) 
+    key1 = ""
 
-        # Concatenatin the random 0, 1 
-        # to the final result 
-        key1 += temp 
+   for i in range(p):
+        # randint function to generate
+        # 0, 1 randomly and converting
+        # the result into str
+        temp = str(random.randint(0, 1))
+        key1 += temp
 
-    return(key1) 
+    return(key1)
 
-
+# function to encode the messagee using the key 
 def enc(msg, key):
     codedKey = ''
     msg = convertBin(msg)
     key = convertBin(key)
 
-    for i in range(0,len(msg)):
-        code = (msg[i]+key[i])%2
+    for i in range(0, len(msg)):
+        code = (msg[i]+key[i]) % 2
         codedKey += str(code)
 
     return codedKey
 
+# function to decode the coded message using the key
 def dec(codedKey, key):
     codedKey = convertBin(codedKey)
     key = convertBin(key)
     msg = ''
 
-    for i in range(0,len(codedKey)):
-        txt = (codedKey[i]+key[i])%2
+    for i in range(0, len(codedKey)):
+        txt = (codedKey[i]+key[i]) % 2
         msg += str(txt)
 
     return msg
 
-def LCG(seed, n, a= 1140671485, c=128201163, m=2**24):
+# generate random numbers using LCG generator
+def LCG(seed, n, a=1140671485, c=128201163, m=2**24):
     numbers = []
     for i in range(n):
         seed = (a * seed + c) % m
@@ -97,8 +58,10 @@ def LCG(seed, n, a= 1140671485, c=128201163, m=2**24):
 
     return numbers
 
+# main function which is called from the test file
+# it needs msg as the message to be encrypted or decrypted with option being 'd' or 'e
 def main(msg, option):
-    availableOpt = ["d", "e"]
+    availableOpt = ["d", "e"]   # list of options ie 'd' for decryption and 'e' for encryption
 
     if option == availableOpt[1]:
         rand = random.randint(1, 10000000)
@@ -107,10 +70,11 @@ def main(msg, option):
         binkey = bin(key)[2:]
         print('bin key is ', binkey, ' type is ', type(binkey))
         print('length of key is {} and msg is {}'.format(len(binkey), len(msg)))
-
+        
+        # to make the size of key as long as the message for proper XOR operation
         lkey = len(binkey)
         lmsg = len(msg)
-
+        # quotient and remainder which can be useful to determine the remaining size of key
         quo = lmsg / lkey
         rem = lmsg % lkey
 
@@ -120,13 +84,16 @@ def main(msg, option):
         for i in range(int(quo)):
             fkey += binkey
         
+        # final key for encryption
         fkey += binkey[:rem]
         print('final keyy is {} and its length is {} '.format(fkey, len(fkey)))
 
         print('msg is ', msg)
         print('key is ', key)
-        print('encrypted msg is: ',enc(msg, fkey))
+        print('encrypted msg is: ', enc(msg, fkey))
     elif option == availableOpt[0]:
-        msg = input("Enter the received msg: ")
+        # if you choose decryption, you have to provide the encrypted message
+        # and the key used for encryption
+        # msg = input("Enter the received msg: ")
         key = input("Enter the key used: ")
-        print('original msg is: ',dec(msg, key))
+        print('original msg is: ', dec(msg, key))
