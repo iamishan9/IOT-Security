@@ -1,66 +1,8 @@
-# def bsd_rand(seed):
-#     def rand():
-#         nonlocal seed
-#         seed = (1103515245*seed + 12345) & 0x7fffffff
-#         return seed
-#     return rand
-
-# def msvcrt_rand(seed):
-#     def rand():
-#         nonlocal seed
-#         seed = (214013*seed + 2531011) & 0x7fffffff
-#         return seed >> 16
-#     return rand
-
-# print(bsd_rand(2), ' and ', msvcrt_rand(2))
-
-# def seedLCG(initVal):
-#     global rand
-#     rand = initVal
-
-# def lcg():
-#     a = 1664525
-#     c = 1013904223
-#     m = 2**24
-#     global rand
-#     rand = (a*rand + c) % m
-#     return rand
-
-# seedLCG(1)
-
-# for i in range(10):
-#     print(lcg())
-
-# import random2
-# import time
-# class Seed(object):
-#     # Function that generates seed
-#     def generate_seed(self):
-#         pass
-
-
-# class TimeSeed(Seed):
-#     """ Generates seed from current time """
-#     def generate_seed(self):
-#         return time.time()
-
+# importing all libraries
 import time
 import math
 import numpy as np
 import scipy.stats as st
-
-
-class Seed(object):
-    # Function that generates seed
-    def generate_seed(self):
-        pass
-
-
-class TimeSeed(Seed):
-    """ Generates seed from current time """
-
-    def generate_seed(self):
-        return time.time()
 
 
 def LCG(seed, n, a=1140671485, c=128201163, m=2**24):

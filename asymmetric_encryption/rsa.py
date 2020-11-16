@@ -1,29 +1,28 @@
+# importing all libraries
 from random import getrandbits,randrange
-# from IOT-SECURITY.rapid_exponentiation import exp_wo_recursion as 
 import sys
 sys.path.append('../')
-
 from rapid_exponentiation import exp_wo_recursion as exp
 
+# calculating gcd
 def gcd(a, b):
     while b:
         a, b = b, a % b
     return a
 
+# function to encrypt message
 def encrypt(message, n, c):
     message_letters = [ord(letter) for letter in message]
-    # message_encrypted = ''.join([chr(letter**c % n) for letter in message_letters])
     message_encrypted = ''.join([chr(exp.find_expo(letter,c)[0] % n) for letter in message_letters])
     return message_encrypted
 
-
+# function to decrypt message
 def decrypt(message_encrypted, n, d):
     message_encrypted_letters = [ord(letter) for letter in message_encrypted]
-    # message = ''.join([chr(letter**d % n) for letter in message_encrypted_letters])
     message = ''.join([chr(exp.find_expo(letter,d)[0]% n) for letter in message_encrypted_letters])
     return message
 
-
+# function to generate n,c and d using prime number p1 & p2
 def keygen(p1, p2):
     n = p1 * p2
     
@@ -45,6 +44,7 @@ def keygen(p1, p2):
 
     return (n, public_key, private_key)
 
+# 
 def power(a, d, n):
     ans = 1
     while d != 0:
@@ -100,5 +100,3 @@ def generatePrimeNumber(length):
     while not is_prime(A, 128):
         A = generate_prime_candidate(length)
     return A
-
-

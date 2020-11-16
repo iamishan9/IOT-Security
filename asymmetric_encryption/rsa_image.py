@@ -1,13 +1,14 @@
 '''
 Encryption and decryption of an image using RSA
 '''
-
+# importing all libraries
 import cv2
 import numpy as np
 from skimage import io
 import matplotlib.pyplot as plt
 from random import randrange, getrandbits
 
+# modular power
 def power(a, d, n):
     ans = 1
     while d != 0:
@@ -17,7 +18,7 @@ def power(a, d, n):
         d >>= 1
     return ans
 
-
+# miller rabin to check primality
 def MillerRabin(N, d):
     a = randrange(2, N - 1)
     x = power(a, d, N)
@@ -34,6 +35,7 @@ def MillerRabin(N, d):
     return False
 
 
+# check if number is prime
 def is_prime(N, K):
     if N == 3 or N == 2:
         return True
@@ -44,43 +46,47 @@ def is_prime(N, K):
     while d % 2 != 0:
         d /= 2
 
-    for _ in range(K):
+    for _ in range(K):  
+        # calling Miller rabin
         if not MillerRabin(N, d):
             return False
     return True
 
-
+# generating prime candidate
 def generate_prime_candidate(length):
     # generate random bits
     p = getrandbits(length)
     p |= (1 << length - 1) | 1
     return p
 
-
+# generating prime number
 def generatePrimeNumber(length):
     A = 4
     while not is_prime(A, 128):
         A = generate_prime_candidate(length)
     return A
 
-
-
-
+# function that starts encryption called from test file
 def start():
+
+    # path of image file to be encrypted
     my_img = io.imread('./asymmetric_encryption/image.jpg')
 
+    # height and width of image
     height, width = my_img.shape[0], my_img.shape[1]
     print('height is {} and width is {}'.format(height, width))
 
+    # generating P and Q
     length = 5
     P = generatePrimeNumber(length)
     Q = generatePrimeNumber(length)
 
+    # printing them
     print(P)
     print(Q)
 
 
-    # Step 2: Calculate N=P*Q and Euler Totient Function = (P-1)*(Q-1)
+    # Calculating N=P*Q and Euler Totient Function = (P-1)*(Q-1)
     N = P*Q
     eulerTotient = (P-1)*(Q-1)
     print(N)
@@ -103,13 +109,7 @@ def start():
     print(E)
 
 
-    # Step 4: Find D.
-    # For Finding D: It must satisfies this property:-  (D*E)Mod(eulerTotient)=1;
-    # Now we have two Choices
-    # 1. That we randomly choose D and check which condition is satisfying above condition.
-    # 2. For Finding D we can Use Extended Euclidean Algorithm: ax+by=1 i.e., eulerTotient(x)+E(y)=GCD(eulerTotient,e)
-    # Here, Best approach is to go for option 2.( Extended Euclidean Algorithm.)
-
+    # Find D.
     def gcdExtended(E, eulerTotient):
         a1, a2, b1, b2, d1, d2 = 1, 0, 0, 1, eulerTotient, E
 
@@ -145,14 +145,11 @@ def start():
 
     D = gcdExtended(E, eulerTotient)
     print(D)
-
-
     row, col = my_img.shape[0], my_img.shape[1]
     enc = [[0 for x in range(3000)] for y in range(3000)]
 
 
-    # Step 5: Encryption
-
+    # Encrypting image
     for i in range(0, height):
         for j in range(0, width):
             r, g, b = my_img[i, j]
@@ -165,14 +162,14 @@ def start():
             C3 = C3 % 256
             my_img[i, j] = [C1, C2, C3]
 
+    # plotting encrypted image
     fig=plt.figure()
     fig.add_subplot(1,2, 1)
-
     plt.xlabel('Image encryption')
     plt.imshow(my_img, cmap="gray")
 
 
-    # Step 6: Decryption
+    # Decrypting image
     for i in range(0, height):
         for j in range(0, width):
             r, g, b = enc[i][j]
@@ -181,8 +178,8 @@ def start():
             M3 = power(b, D, N)
             my_img[i, j] = [M1, M2, M3]
 
+    # plotting decrypted image
     fig.add_subplot(1,2, 2)
     plt.imshow(my_img, cmap="gray")
-
     plt.xlabel('Image decryption')
     plt.show(block='True')

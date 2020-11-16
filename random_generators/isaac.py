@@ -6,7 +6,7 @@ contains the class isaac
 
 mod = 2 ** 32
 
-
+# randomize the seed
 def mix(a, b, c, d, e, f, g, h):
     a ^= 0xFFFFFFFF & b << 11
     d = (d + a) % mod
@@ -34,7 +34,6 @@ def mix(a, b, c, d, e, f, g, h):
     a = (a + b) % mod
     return a, b, c, d, e, f, g, h
 
-
 class Isaac(object):
     def __init__(self, seed_vector=[0] * 256):
         self.mm = [0] * 256
@@ -46,6 +45,7 @@ class Isaac(object):
 
         self.__randinit__(True)
 
+    # return a random number between 0 to 2**32
     def rand(self, mod=2 ** 32):
         if self.randcnt == 256:
             self.__isaac__()
@@ -54,6 +54,7 @@ class Isaac(object):
         self.randcnt += 1
         return res
 
+    # constructor
     def __isaac__(self):
         self.cc += 1
         self.bb += self.cc
@@ -140,13 +141,6 @@ class Isaac(object):
                 i += 8
         self.__isaac__()
         self.randcnt = 256
-
-
-if __name__ == "__main__":
-    generator = Isaac()
-    number = generator.rand()
-    print("Print using hexadecimal notation: {:08x}".format(number), end="\n")
-    print("Print using decimal notation: {}".format(number))
 
  
 

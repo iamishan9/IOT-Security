@@ -2,8 +2,8 @@
 """
 Blum blum shub
 """
-
 class BBS:
+    # initialize
     def __init__(self, seed, start=100, end=200):
         self.seed = seed
         self.start = start
@@ -33,6 +33,7 @@ class BBS:
         self.p = pq[0]
         self.q = pq[1]
 
+    # generator function
     def Generator(self): 
         M = self.p*self.q
         x = self.seed
