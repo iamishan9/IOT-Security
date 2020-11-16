@@ -146,7 +146,7 @@ def start():
     D = gcdExtended(E, eulerTotient)
     print(D)
     row, col = my_img.shape[0], my_img.shape[1]
-    enc = [[0 for x in range(3000)] for y in range(3000)]
+    enc = [[[0 for x in range(3000)] for y in range(3000)]
 
 
     # Encrypting image
