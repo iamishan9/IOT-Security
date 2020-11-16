@@ -40,7 +40,6 @@ def gcdExtended(E, eulerTotient):
 
     return D
 
-
 # modular power
 def power(a, d, n):
     ans = 1
